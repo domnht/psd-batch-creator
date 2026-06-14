@@ -26,7 +26,7 @@ DisableProgramGroupPage=yes
 ; Uncomment the following line to run in non administrative install mode (install for current user only).
 PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
-OutputDir=X:\psd-batch-creator\installer\Windows
+OutputDir=X:\psd-batch-creator\installer
 OutputBaseFilename=PSD Batch Creator Setup
 
 VersionInfoCompany=Nguyen Hieu Thanh

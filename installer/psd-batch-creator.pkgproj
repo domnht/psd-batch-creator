@@ -29,7 +29,7 @@
 											<key>GID</key>
 											<integer>80</integer>
 											<key>PATH</key>
-											<string>/Users/thanh/Documents/Python/PSD Batch Creator/dist/macOS/PSD Batch Creator</string>
+											<string>/Users/thanh/Documents/GitHub/psd-batch-creator/dist/macOS/PSD Batch Creator</string>
 											<key>PATH_TYPE</key>
 											<integer>0</integer>
 											<key>PERMISSIONS</key>
@@ -42,12 +42,22 @@
 										<dict>
 											<key>BUNDLE_CAN_DOWNGRADE</key>
 											<false/>
+											<key>BUNDLE_POSTINSTALL_PATH</key>
+											<dict>
+												<key>PATH_TYPE</key>
+												<integer>0</integer>
+											</dict>
+											<key>BUNDLE_PREINSTALL_PATH</key>
+											<dict>
+												<key>PATH_TYPE</key>
+												<integer>0</integer>
+											</dict>
 											<key>CHILDREN</key>
 											<array/>
 											<key>GID</key>
 											<integer>80</integer>
 											<key>PATH</key>
-											<string>/Users/thanh/Documents/Python/PSD Batch Creator/dist/macOS/PSD Batch Creator.app</string>
+											<string>/Users/thanh/Documents/GitHub/psd-batch-creator/dist/macOS/PSD Batch Creator.app</string>
 											<key>PATH_TYPE</key>
 											<integer>0</integer>
 											<key>PERMISSIONS</key>

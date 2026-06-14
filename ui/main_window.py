@@ -141,8 +141,9 @@ class MainWindow(QMainWindow):
         self.textInput = QPlainTextEdit()
         self.textInput.setProperty("class", "codeArea")
         self.textInput.setPlaceholderText(
-            "#010203 Document 1\n"
-            "SubDirectory #020304 Document 2"
+            "#f0f1f2 Poster\n"
+            "Animals #010203 Cat\n"
+            "Animals #040506 Dog"
         )
         WidgetUtils.scaleFont(self.textInput, 0.95)
 
