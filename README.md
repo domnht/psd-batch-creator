@@ -3,11 +3,15 @@
 ![Python](https://img.shields.io/badge/Python-3.x-blue)
 ![PyQt6](https://img.shields.io/badge/GUI-PyQt6-green)
 ![Platform](https://img.shields.io/badge/Platform-macOS%20%7C%20Windows-lightgrey)
-![Version](https://img.shields.io/badge/Version-1.1-orange)
+[![Version](https://img.shields.io/badge/Version-1.1--beta-orange)](../../releases/tag/v1.1-beta)
 
 ## Giới thiệu
 
 **PSD Batch Creator** là ứng dụng desktop viết bằng **Python** và **PyQt6**, hỗ trợ tạo hàng loạt file Photoshop `.psd` trên **macOS** và **Windows**.
+
+## Tải về
+
+Tải phiên bản mới nhất [tại đây](../../releases/latest).
 
 ## Chức năng chính
 
