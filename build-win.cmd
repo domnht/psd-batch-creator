@@ -1,0 +1,1 @@
+pyinstaller --noconfirm --clean --windowed --name "PSD Batch Creator" --icon "assets\app_icon.ico" --add-data "assets;assets" main.py
