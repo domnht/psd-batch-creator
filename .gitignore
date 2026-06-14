@@ -221,3 +221,5 @@ __marimo__/
 
 .DS_Store
 ._*
+installer/macOS/PSD Batch Creator.pkg
+installer/Windows/PSD Batch Creator Setup.exe
