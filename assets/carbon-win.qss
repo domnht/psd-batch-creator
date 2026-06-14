@@ -1,0 +1,449 @@
+/* =========================================================
+   carbon-win.qss
+   Windows compact override for carbon.qss
+   PyQt6 / Qt Style Sheets
+
+   Purpose:
+   - Fix Windows font appearing too large while spacing is compact.
+   - Use px instead of pt for more predictable desktop sizing.
+   - Load this file AFTER carbon.qss on Windows.
+
+   No ID selectors are used.
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   Global Windows Font Override
+   --------------------------------------------------------- */
+
+QWidget {
+    /* font-family: "Segoe UI", "IBM Plex Sans", "Inter", Arial, sans-serif; */
+    font-size: 12px;
+}
+
+QToolTip {
+    font-size: 11px;
+    padding: 4px 6px;
+}
+
+/* ---------------------------------------------------------
+   Inputs
+   --------------------------------------------------------- */
+
+QLineEdit,
+QTextEdit,
+QPlainTextEdit,
+QSpinBox,
+QDoubleSpinBox,
+QDateEdit,
+QTimeEdit,
+QDateTimeEdit {
+    font-size: 12px;
+    padding: 3px 6px;
+    min-height: 18px;
+}
+
+QLineEdit:focus,
+QTextEdit:focus,
+QPlainTextEdit:focus,
+QSpinBox:focus,
+QDoubleSpinBox:focus,
+QDateEdit:focus,
+QTimeEdit:focus,
+QDateTimeEdit:focus {
+    padding: 2px 5px;
+}
+
+QSpinBox::up-button,
+QDoubleSpinBox::up-button,
+QDateEdit::up-button,
+QTimeEdit::up-button,
+QDateTimeEdit::up-button,
+QSpinBox::down-button,
+QDoubleSpinBox::down-button,
+QDateEdit::down-button,
+QTimeEdit::down-button,
+QDateTimeEdit::down-button {
+    width: 18px;
+}
+
+/* ---------------------------------------------------------
+   ComboBox
+   --------------------------------------------------------- */
+
+QComboBox {
+    font-size: 12px;
+    padding: 3px 26px 3px 6px;
+    min-height: 18px;
+}
+
+QComboBox:focus {
+    padding: 2px 25px 2px 5px;
+}
+
+QComboBox::drop-down {
+    width: 24px;
+}
+
+QComboBox QAbstractItemView {
+    font-size: 12px;
+    padding: 2px 0;
+}
+
+QComboBox QAbstractItemView::item {
+    min-height: 22px;
+    padding: 3px 8px;
+}
+
+/* ---------------------------------------------------------
+   Buttons
+   --------------------------------------------------------- */
+
+QPushButton,
+QToolButton {
+    font-size: 12px;
+    padding: 4px 9px;
+    min-height: 18px;
+}
+
+QPushButton:focus,
+QToolButton:focus {
+    padding: 3px 8px;
+}
+
+.primaryButton,
+.secondaryButton,
+.ghostButton,
+.dangerButton {
+    font-size: 12px;
+    padding: 4px 9px;
+    min-height: 18px;
+}
+
+.primaryButton:focus,
+.secondaryButton:focus,
+.ghostButton:focus,
+.dangerButton:focus {
+    padding: 3px 8px;
+}
+
+.toolbarButton {
+    font-size: 12px;
+    padding: 2px 5px;
+    min-height: 17px;
+}
+
+/* ---------------------------------------------------------
+   CheckBox / RadioButton
+   --------------------------------------------------------- */
+
+QCheckBox,
+QRadioButton {
+    font-size: 12px;
+    spacing: 5px;
+    min-height: 18px;
+}
+
+QCheckBox::indicator,
+QRadioButton::indicator {
+    width: 13px;
+    height: 13px;
+}
+
+QRadioButton::indicator {
+    border-radius: 6px;
+}
+
+/* ---------------------------------------------------------
+   GroupBox
+   --------------------------------------------------------- */
+
+QGroupBox {
+    font-size: 12px;
+    margin-top: 12px;
+    padding: 8px 7px 7px 7px;
+}
+
+QGroupBox::title {
+    left: 5px;
+    padding: 0 3px;
+}
+
+/* ---------------------------------------------------------
+   Tabs
+   --------------------------------------------------------- */
+
+QTabBar::tab {
+    font-size: 12px;
+    padding: 5px 9px;
+    min-width: 58px;
+    min-height: 18px;
+}
+
+/* ---------------------------------------------------------
+   Tables / Trees / Lists
+   --------------------------------------------------------- */
+
+QAbstractItemView,
+QListView,
+QTreeView,
+QTableView,
+QTableWidget,
+QTreeWidget,
+QListWidget {
+    font-size: 12px;
+}
+
+QAbstractItemView::item {
+    min-height: 20px;
+    padding: 2px 5px;
+}
+
+QHeaderView::section {
+    font-size: 12px;
+    padding: 3px 5px;
+}
+
+/* ---------------------------------------------------------
+   ScrollBar
+   --------------------------------------------------------- */
+
+QScrollBar:vertical {
+    width: 9px;
+}
+
+QScrollBar::handle:vertical {
+    min-height: 22px;
+}
+
+QScrollBar:horizontal {
+    height: 9px;
+}
+
+QScrollBar::handle:horizontal {
+    min-width: 22px;
+}
+
+/* ---------------------------------------------------------
+   MenuBar / Menu
+   --------------------------------------------------------- */
+
+QMenuBar {
+    font-size: 12px;
+}
+
+QMenuBar::item {
+    padding: 3px 7px;
+    min-height: 17px;
+}
+
+QMenu {
+    font-size: 12px;
+    padding: 2px 0;
+}
+
+QMenu::item {
+    padding: 4px 22px 4px 22px;
+    min-height: 17px;
+}
+
+QMenu::separator {
+    margin: 2px 0;
+}
+
+QMenu::indicator {
+    width: 13px;
+    height: 13px;
+    left: 5px;
+}
+
+/* ---------------------------------------------------------
+   ToolBar / StatusBar
+   --------------------------------------------------------- */
+
+QToolBar {
+    spacing: 1px;
+    padding: 2px;
+}
+
+QToolBar::separator {
+    height: 18px;
+    margin: 2px;
+}
+
+QStatusBar {
+    font-size: 12px;
+    min-height: 18px;
+}
+
+/* ---------------------------------------------------------
+   ProgressBar
+   --------------------------------------------------------- */
+
+QProgressBar {
+    font-size: 11px;
+    min-height: 6px;
+}
+
+/* ---------------------------------------------------------
+   Slider
+   --------------------------------------------------------- */
+
+QSlider::groove:horizontal {
+    height: 3px;
+}
+
+QSlider::handle:horizontal {
+    width: 12px;
+    height: 12px;
+    margin: -5px 0;
+    border-radius: 6px;
+}
+
+QSlider::groove:vertical {
+    width: 3px;
+}
+
+QSlider::handle:vertical {
+    width: 12px;
+    height: 12px;
+    margin: 0 -5px;
+    border-radius: 6px;
+}
+
+/* ---------------------------------------------------------
+   DockWidget
+   --------------------------------------------------------- */
+
+QDockWidget {
+    font-size: 12px;
+}
+
+QDockWidget::title {
+    padding: 4px 7px;
+}
+
+/* ---------------------------------------------------------
+   Calendar
+   --------------------------------------------------------- */
+
+QCalendarWidget {
+    font-size: 12px;
+}
+
+QCalendarWidget QToolButton {
+    font-size: 12px;
+    padding: 3px 5px;
+}
+
+QCalendarWidget QAbstractItemView {
+    font-size: 12px;
+}
+
+/* ---------------------------------------------------------
+   Dialogs
+   --------------------------------------------------------- */
+
+QMessageBox {
+    font-size: 12px;
+}
+
+QDialogButtonBox QPushButton {
+    min-width: 60px;
+}
+
+/* ---------------------------------------------------------
+   Code Area
+   --------------------------------------------------------- */
+
+.codeArea {
+    /* font-family: "Cascadia Mono", "Consolas", "IBM Plex Mono", "JetBrains Mono", "Menlo", "Monaco", monospace; */
+    font-size: 11px;
+    padding: 5px;
+    /* border-left: 3px solid #0f62fe; */
+}
+
+.codeArea:focus {
+    padding: 4px;
+    /* border-left: 3px solid #0f62fe; */
+}
+
+/* ---------------------------------------------------------
+   Helper Classes
+   --------------------------------------------------------- */
+
+.card {
+    padding: 8px;
+}
+
+.headerBar {
+    font-size: 12px;
+    padding: 4px 7px;
+}
+
+.footerBar {
+    font-size: 12px;
+    padding: 4px 7px;
+}
+
+.sectionTitle {
+    font-size: 13px;
+}
+
+.caption {
+    font-size: 11px;
+}
+
+.compact {
+    font-size: 11px;
+    padding: 2px 5px;
+    min-height: 16px;
+}
+
+.spacious {
+    font-size: 12px;
+    padding: 6px 12px;
+    min-height: 24px;
+}
+
+.infoBox,
+.successBox,
+.warningBox,
+.errorBox {
+    font-size: 12px;
+    padding: 7px;
+    /* border-left-width: 3px; */
+}
+
+.invalidInput {
+    font-size: 12px;
+    padding: 2px 5px;
+}
+
+.validInput,
+.warningInput {
+    font-size: 12px;
+}
+
+.heading1 {
+    font-size: 20px;
+}
+
+.heading2 {
+    font-size: 17px;
+}
+
+.heading3 {
+    font-size: 14px;
+}
+
+.bodyText {
+    font-size: 12px;
+}
+
+.smallText {
+    font-size: 11px;
+}
+
+/* ---------------------------------------------------------
+   End of carbon-win.qss
+   --------------------------------------------------------- */

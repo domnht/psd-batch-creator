@@ -31,22 +31,33 @@ from utils.psd_task import (
     createTaskFromTableRow,
     createTaskFromTextLine,
 )
+from utils.widget_utils import WidgetUtils
 from workers.psd_batch_worker import PsdBatchWorker
 
 
 class MainWindow(QMainWindow):
-    COLUMN_FILE_NAME = 0
-    COLUMN_BACKGROUND_COLOR = 1
-    COLUMN_WIDTH = 2
-    COLUMN_HEIGHT = 3
-    COLUMN_RESOLUTION = 4
+    COLUMN_SUB_DIRECTORY = 0
+    COLUMN_FILE_NAME = 1
+    COLUMN_BACKGROUND_COLOR = 2
+    COLUMN_WIDTH = 3
+    COLUMN_HEIGHT = 4
+    COLUMN_RESOLUTION = 5
 
     TABLE_HEADERS = [
-        "Tên file",
-        "Màu nền",
-        "Chiều rộng",
-        "Chiều cao",
-        "Độ phân giải",
+        "Sub directory",
+        "File name",
+        "Background color",
+        "Width",
+        "Height",
+        "Resolution",
+    ]
+
+    REQUIRED_TABLE_HEADERS = [
+        "File name",
+        "Background color",
+        "Width",
+        "Height",
+        "Resolution",
     ]
 
     SETTINGS_ORGANIZATION = "NguyenHieuThanh"
@@ -125,19 +136,17 @@ class MainWindow(QMainWindow):
         self.tableWidget.setColumnWidth(self.COLUMN_WIDTH, 100)
         self.tableWidget.setColumnWidth(self.COLUMN_HEIGHT, 100)
         self.tableWidget.setColumnWidth(self.COLUMN_RESOLUTION, 120)
+        self.tableWidget.setColumnWidth(self.COLUMN_SUB_DIRECTORY, 140)
 
         self.textInput = QPlainTextEdit()
         self.textInput.setProperty("class", "codeArea")
         self.textInput.setPlaceholderText(
-            "#aee2ff Baby blue template\n"
-            "#ffd1dc Pastel Pink\n"
-            "#c1e1c1 Mint Green\n"
-            "#e6e6fa Lavender\n"
-            "#ffe5b4 Peach"
+            "#010203 Document 1\n"
+            "SubDirectory #020304 Document 2"
         )
+        WidgetUtils.scaleFont(self.textInput, 0.95)
 
         self.textHelpLabel = QLabel(
-            # "Each line format: #RRGGBB Document Name\n"
             f"Default size: {DEFAULT_WIDTH}px x {DEFAULT_HEIGHT}px at "
             f"{DEFAULT_RESOLUTION} ppi"
         )
@@ -151,28 +160,28 @@ class MainWindow(QMainWindow):
     def _createLayout(self) -> None:
         tableButtonLayout = QHBoxLayout()
         tableButtonLayout.setSpacing(5)
-        tableButtonLayout.addStretch()
         tableButtonLayout.addWidget(self.pasteButton)
         tableButtonLayout.addWidget(self.clearTableButton)
         tableButtonLayout.addStretch()
 
         tableTabLayout = QVBoxLayout()
+        tableTabLayout.setContentsMargins(5, 5, 5, 5)
         tableTabLayout.addLayout(tableButtonLayout)
         tableTabLayout.addWidget(self.tableWidget)
 
         self.tableTab.setLayout(tableTabLayout)
 
         textTabLayout = QVBoxLayout()
+        textTabLayout.setContentsMargins(5, 5, 5, 5)
         textTabLayout.addWidget(self.textHelpLabel)
         textTabLayout.addWidget(self.textInput)
 
         self.textTab.setLayout(textTabLayout)
 
-        self.tabWidget.addTab(self.tableTab, "Tab 1 - Table Input")
-        self.tabWidget.addTab(self.textTab, "Tab 2 - Text Input")
+        self.tabWidget.addTab(self.tableTab, "Table Input")
+        self.tabWidget.addTab(self.textTab, "Text Input")
 
         outputLayout = QHBoxLayout()
-        outputLayout.setContentsMargins(0, 0, 0, 0)
         outputLayout.addWidget(QLabel("Output folder:"))
         outputLayout.addWidget(self.outputDirectoryLineEdit)
         outputLayout.addWidget(self.browseOutputButton)
@@ -180,10 +189,10 @@ class MainWindow(QMainWindow):
         commandLayout = QHBoxLayout()
         commandLayout.addStretch()
         commandLayout.addWidget(self.startButton)
-        commandLayout.setContentsMargins(0, 0, 0, 10)
+        commandLayout.setContentsMargins(0, 0, 0, 15)
 
         mainLayout = QVBoxLayout()
-        mainLayout.setSpacing(10)
+        mainLayout.setSpacing(5)
         mainLayout.addWidget(self.tabWidget)
         mainLayout.addLayout(outputLayout)
         mainLayout.addLayout(commandLayout)
@@ -305,7 +314,11 @@ class MainWindow(QMainWindow):
             reorderedRow = []
 
             for header in self.TABLE_HEADERS:
-                sourceIndex = headerMapping[header]
+                sourceIndex = headerMapping.get(header)
+
+                if sourceIndex is None:
+                    reorderedRow.append("")
+                    continue
 
                 if sourceIndex < len(rowValues):
                     reorderedRow.append(rowValues[sourceIndex])
@@ -325,19 +338,39 @@ class MainWindow(QMainWindow):
             for cellValue in firstRow
         ]
 
-        normalizedExpectedHeaders = [
+        normalizedHeaderToIndex = {}
+
+        for index, normalizedHeader in enumerate(normalizedFirstRow):
+            if normalizedHeader:
+                normalizedHeaderToIndex[normalizedHeader] = index
+
+        requiredHeadersArePresent = all(
+            self._normalizeHeaderText(header) in normalizedHeaderToIndex
+            for header in self.REQUIRED_TABLE_HEADERS
+        )
+
+        if not requiredHeadersArePresent:
+            return None
+
+        allowedHeaders = {
             self._normalizeHeaderText(header)
             for header in self.TABLE_HEADERS
-        ]
+        }
 
-        if sorted(normalizedFirstRow) != sorted(normalizedExpectedHeaders):
+        clipboardHeadersAreValid = all(
+            normalizedHeader in allowedHeaders
+            for normalizedHeader in normalizedFirstRow
+            if normalizedHeader
+        )
+
+        if not clipboardHeadersAreValid:
             return None
 
         headerMapping = {}
 
         for expectedHeader in self.TABLE_HEADERS:
             normalizedExpectedHeader = self._normalizeHeaderText(expectedHeader)
-            sourceIndex = normalizedFirstRow.index(normalizedExpectedHeader)
+            sourceIndex = normalizedHeaderToIndex.get(normalizedExpectedHeader)
             headerMapping[expectedHeader] = sourceIndex
 
         return headerMapping
@@ -346,7 +379,7 @@ class MainWindow(QMainWindow):
         return " ".join(textValue.strip().lower().split())
 
     def _normalizeTableRow(self, rowValues: list[str]) -> list[str]:
-        normalizedRow = ["", "", "", "", ""]
+        normalizedRow = ["", "", "", "", "", ""]
 
         for index in range(min(len(rowValues), len(normalizedRow))):
             normalizedRow[index] = rowValues[index]
@@ -382,8 +415,21 @@ class MainWindow(QMainWindow):
             width = self._getTableCellText(rowIndex, self.COLUMN_WIDTH)
             height = self._getTableCellText(rowIndex, self.COLUMN_HEIGHT)
             resolution = self._getTableCellText(rowIndex, self.COLUMN_RESOLUTION)
+            subDirectory = self._getTableCellText(
+                rowIndex,
+                self.COLUMN_SUB_DIRECTORY,
+            )
 
-            if not any([fileName, backgroundColor, width, height, resolution]):
+            if not any(
+                [
+                    fileName,
+                    backgroundColor,
+                    width,
+                    height,
+                    resolution,
+                    subDirectory,
+                ]
+            ):
                 continue
 
             try:
@@ -393,6 +439,7 @@ class MainWindow(QMainWindow):
                     width=width,
                     height=height,
                     resolution=resolution,
+                    subDirectory=subDirectory,
                 )
             except Exception as error:
                 raise ValueError(f"Table row {rowIndex + 1}: {error}") from error
@@ -463,8 +510,6 @@ class MainWindow(QMainWindow):
         self._startWorker(tasks, outputDirectory)
 
     def _startWorker(self, tasks: list[PsdTask], outputDirectory: str) -> None:
-        # self.setEnabled(False)
-
         self.progressWindow = ProgressWindow(self)
         self.progressWindow.setOutputDirectory(outputDirectory)
         self.progressWindow.setGeometry(self.geometry())
@@ -486,6 +531,7 @@ class MainWindow(QMainWindow):
             self.worker.cancel,
             Qt.ConnectionType.DirectConnection,
         )
+
         self.progressWindow.openFolderRequested.connect(
             lambda: self.openOutputDirectory(Path(outputDirectory))
         )
@@ -511,19 +557,15 @@ class MainWindow(QMainWindow):
         if self.progressWindow is not None:
             self.progressWindow.markFinished(wasCancelled)
 
-        # self.setEnabled(True)
-        # self.raise_()
-        # self.activateWindow()
-
         if wasCancelled:
             QMessageBox.information(
-                self,
+                self.progressWindow,
                 "Batch Creation Cancelled",
                 "Batch creation was cancelled.",
             )
             return
 
-        self.showCompletionMessage()
+        self.progressWindow.showSuccessMessage()
 
     def handleWorkerFailure(self, errorMessage: str) -> None:
         if self.progressWindow is not None:
@@ -531,26 +573,16 @@ class MainWindow(QMainWindow):
             self.progressWindow.appendLog(errorMessage)
             self.progressWindow.markFinished(True)
 
-        # self.setEnabled(True)
-        # self.raise_()
-        # self.activateWindow()
-
         QMessageBox.critical(
-            self,
+            self.progressWindow,
             "Batch Creation Failed",
-            "An error occurred while creating PSD files. See the progress window log for details.",
+            "An error occurred while creating PSD files. "
+            "See the progress window log for details.",
         )
 
     def clearWorkerReferences(self) -> None:
         self.workerThread = None
         self.worker = None
-
-    def showCompletionMessage(self) -> None:
-        QMessageBox.information(
-            self,
-            "Batch Creation Completed",
-            "Batch PSD creation has completed successfully.",
-        )
 
     def openOutputDirectory(self, outputDirectory: Path) -> None:
         outputDirectory.mkdir(parents=True, exist_ok=True)

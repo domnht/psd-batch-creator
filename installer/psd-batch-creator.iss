@@ -7,7 +7,7 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{A7E881BF-678F-4DA6-9E32-3149A1CFD1D8}
 AppName=PSD Batch Creator
-AppVersion=1.0
+AppVersion=1.1
 ;AppVerName=PSD Batch Creator 1.0
 AppPublisher=Nguyen Hieu Thanh
 DefaultDirName={autopf}\PSD Batch Creator
@@ -26,14 +26,14 @@ DisableProgramGroupPage=yes
 ; Uncomment the following line to run in non administrative install mode (install for current user only).
 PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
-OutputDir=X:\installer\Windows
+OutputDir=X:\psd-batch-creator\installer\Windows
 OutputBaseFilename=PSD Batch Creator Setup
 
 VersionInfoCompany=Nguyen Hieu Thanh
-VersionInfoDescription=PSD Batch Creator
-VersionInfoVersion=1.0
+VersionInfoDescription=PSD Batch Creator 1.1
+VersionInfoVersion=1.1
 
-SetupIconFile="X:\assets\app_icon.ico"
+SetupIconFile="X:\psd-batch-creator\assets\app_icon.ico"
 SolidCompression=yes
 WizardStyle=modern dynamic windows11
 
@@ -44,8 +44,38 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "X:\dist\Windows\PSD Batch Creator.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "X:\dist\Windows\_internal\*"; DestDir: "{app}\_internal"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "X:\psd-batch-creator\dist\Windows\PSD Batch Creator.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "X:\psd-batch-creator\dist\Windows\_internal\*"; DestDir: "{app}\_internal"; Flags: ignoreversion recursesubdirs createallsubdirs
+
+Source: "X:\psd-batch-creator\installer\fonts\IBMPlexMono-ExtraLight.ttf"; DestDir: "{autofonts}"; FontInstall: "IBM Plex Mono ExtraLight"; Flags: onlyifdoesntexist
+Source: "X:\psd-batch-creator\installer\fonts\IBMPlexMono-ExtraLightItalic.ttf"; DestDir: "{autofonts}"; FontInstall: "IBM Plex Mono ExtraLight Italic"; Flags: onlyifdoesntexist
+Source: "X:\psd-batch-creator\installer\fonts\IBMPlexMono-Italic.ttf"; DestDir: "{autofonts}"; FontInstall: "IBM Plex Mono Italic"; Flags: onlyifdoesntexist
+Source: "X:\psd-batch-creator\installer\fonts\IBMPlexMono-Light.ttf"; DestDir: "{autofonts}"; FontInstall: "IBM Plex Mono Light"; Flags: onlyifdoesntexist
+Source: "X:\psd-batch-creator\installer\fonts\IBMPlexMono-LightItalic.ttf"; DestDir: "{autofonts}"; FontInstall: "IBM Plex Mono Light Italic"; Flags: onlyifdoesntexist
+Source: "X:\psd-batch-creator\installer\fonts\IBMPlexMono-Medium.ttf"; DestDir: "{autofonts}"; FontInstall: "IBM Plex Mono Medium"; Flags: onlyifdoesntexist
+Source: "X:\psd-batch-creator\installer\fonts\IBMPlexMono-MediumItalic.ttf"; DestDir: "{autofonts}"; FontInstall: "IBM Plex Mono Medium Italic"; Flags: onlyifdoesntexist
+Source: "X:\psd-batch-creator\installer\fonts\IBMPlexMono-Regular.ttf"; DestDir: "{autofonts}"; FontInstall: "IBM Plex Mono Regular"; Flags: onlyifdoesntexist
+Source: "X:\psd-batch-creator\installer\fonts\IBMPlexMono-SemiBold.ttf"; DestDir: "{autofonts}"; FontInstall: "IBM Plex Mono SemiBold"; Flags: onlyifdoesntexist
+Source: "X:\psd-batch-creator\installer\fonts\IBMPlexMono-SemiBoldItalic.ttf"; DestDir: "{autofonts}"; FontInstall: "IBM Plex Mono SemiBold Italic"; Flags: onlyifdoesntexist
+Source: "X:\psd-batch-creator\installer\fonts\IBMPlexMono-Thin.ttf"; DestDir: "{autofonts}"; FontInstall: "IBM Plex Mono Thin"; Flags: onlyifdoesntexist
+Source: "X:\psd-batch-creator\installer\fonts\IBMPlexMono-ThinItalic.ttf"; DestDir: "{autofonts}"; FontInstall: "IBM Plex Mono Thin Italic"; Flags: onlyifdoesntexist
+Source: "X:\psd-batch-creator\installer\fonts\IBMPlexMono-Bold.ttf"; DestDir: "{autofonts}"; FontInstall: "IBM Plex Mono Bold"; Flags: onlyifdoesntexist
+Source: "X:\psd-batch-creator\installer\fonts\IBMPlexMono-BoldItalic.ttf"; DestDir: "{autofonts}"; FontInstall: "IBM Plex Mono Bold Italic"; Flags: onlyifdoesntexist
+Source: "X:\psd-batch-creator\installer\fonts\IBMPlexSans-Bold.ttf"; DestDir: "{autofonts}"; FontInstall: "IBM Plex Sans Bold"; Flags: onlyifdoesntexist
+Source: "X:\psd-batch-creator\installer\fonts\IBMPlexSans-BoldItalic.ttf"; DestDir: "{autofonts}"; FontInstall: "IBM Plex Sans Bold Italic"; Flags: onlyifdoesntexist
+Source: "X:\psd-batch-creator\installer\fonts\IBMPlexSans-ExtraLight.ttf"; DestDir: "{autofonts}"; FontInstall: "IBM Plex Sans ExtraLight"; Flags: onlyifdoesntexist
+Source: "X:\psd-batch-creator\installer\fonts\IBMPlexSans-ExtraLightItalic.ttf"; DestDir: "{autofonts}"; FontInstall: "IBM Plex Sans ExtraLight Italic"; Flags: onlyifdoesntexist
+Source: "X:\psd-batch-creator\installer\fonts\IBMPlexSans-Italic.ttf"; DestDir: "{autofonts}"; FontInstall: "IBM Plex Sans Italic"; Flags: onlyifdoesntexist
+Source: "X:\psd-batch-creator\installer\fonts\IBMPlexSans-Light.ttf"; DestDir: "{autofonts}"; FontInstall: "IBM Plex Sans Light"; Flags: onlyifdoesntexist
+Source: "X:\psd-batch-creator\installer\fonts\IBMPlexSans-LightItalic.ttf"; DestDir: "{autofonts}"; FontInstall: "IBM Plex Sans Light Italic"; Flags: onlyifdoesntexist
+Source: "X:\psd-batch-creator\installer\fonts\IBMPlexSans-Medium.ttf"; DestDir: "{autofonts}"; FontInstall: "IBM Plex Sans Medium"; Flags: onlyifdoesntexist
+Source: "X:\psd-batch-creator\installer\fonts\IBMPlexSans-MediumItalic.ttf"; DestDir: "{autofonts}"; FontInstall: "IBM Plex Sans Medium Italic"; Flags: onlyifdoesntexist
+Source: "X:\psd-batch-creator\installer\fonts\IBMPlexSans-Regular.ttf"; DestDir: "{autofonts}"; FontInstall: "IBM Plex Sans Regular"; Flags: onlyifdoesntexist
+Source: "X:\psd-batch-creator\installer\fonts\IBMPlexSans-SemiBold.ttf"; DestDir: "{autofonts}"; FontInstall: "IBM Plex Sans SemiBold"; Flags: onlyifdoesntexist
+Source: "X:\psd-batch-creator\installer\fonts\IBMPlexSans-SemiBoldItalic.ttf"; DestDir: "{autofonts}"; FontInstall: "IBM Plex Sans SemiBold Italic"; Flags: onlyifdoesntexist
+Source: "X:\psd-batch-creator\installer\fonts\IBMPlexSans-Thin.ttf"; DestDir: "{autofonts}"; FontInstall: "IBM Plex Sans Thin"; Flags: onlyifdoesntexist
+Source: "X:\psd-batch-creator\installer\fonts\IBMPlexSans-ThinItalic.ttf"; DestDir: "{autofonts}"; FontInstall: "IBM Plex Sans Thin Italic"; Flags: onlyifdoesntexist
+
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

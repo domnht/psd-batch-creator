@@ -1,5 +1,5 @@
 from pathlib import Path
-
+from utils.widget_utils import WidgetUtils
 from PyQt6.QtCore import QPropertyAnimation, Qt, pyqtSignal
 from PyQt6.QtWidgets import (
     QDialog,
@@ -49,6 +49,7 @@ class ProgressWindow(QDialog):
         self.logTextEdit = QTextEdit()
         self.logTextEdit.setReadOnly(True)
         self.logTextEdit.setProperty("class", "codeArea")
+        WidgetUtils.scaleFont(self.logTextEdit, 0.95)
 
         self.openFolderButton = QPushButton("Open Folder")
         self.openFolderButton.setVisible(False)

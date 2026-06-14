@@ -37,7 +37,7 @@ class PsdBatchWorker(QObject):
                 return
 
             self.logMessage.emit(f"Output directory: {self.outputDirectory}")
-            self.logMessage.emit(f"Total files: {totalTasks}")
+            self.logMessage.emit(f"Total files: {totalTasks}\n")
 
             completedTasks = 0
 
@@ -48,10 +48,17 @@ class PsdBatchWorker(QObject):
                     return
 
                 outputPath = task.getOutputPath(self.outputDirectory)
+                outputPath.parent.mkdir(parents=True, exist_ok=True)
 
-                self.logMessage.emit(
-                    f"[{taskIndex}/{totalTasks}] Creating: {outputPath.name}"
-                )
+                if task.subDirectory:
+                    self.logMessage.emit(
+                        f"[{taskIndex}/{totalTasks}] Creating: "
+                        f"{task.subDirectory}/{outputPath.name}"
+                    )
+                else:
+                    self.logMessage.emit(
+                        f"[{taskIndex}/{totalTasks}] Creating: {outputPath.name}"
+                    )
 
                 photoshopDocument = PhotoshopDocument(
                     width=task.width,
@@ -67,12 +74,17 @@ class PsdBatchWorker(QObject):
 
                 fileSize = outputPath.stat().st_size
 
+                if task.subDirectory:
+                    displayPath = f"{task.subDirectory}/{outputPath.name}"
+                else:
+                    displayPath = outputPath.name
+
                 self.logMessage.emit(
-                    f"Done: {outputPath.name} | "
+                    f"Done: {displayPath} | "
                     f"{task.width}x{task.height} | "
                     f"{task.resolution} ppi | "
                     f"{task.backgroundColor} | "
-                    f"{fileSize:,} bytes"
+                    f"{fileSize:,} bytes\n"
                 )
 
                 self.progressChanged.emit(completedTasks, totalTasks)
